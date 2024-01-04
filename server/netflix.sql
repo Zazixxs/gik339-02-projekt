@@ -1,6 +1,0 @@
-CREATE TABLE FAN (
-    ID INTEGER PRIMARY KEY,
-    Namn TEXT,
-    Alder INTEGER,
-    Stad TEXT
-);
