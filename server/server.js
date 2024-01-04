@@ -60,7 +60,15 @@ server.put("/movies/id", (req, res) => {
     );
   });
   
- 
+  server.delete("/movie/:id", (req, res) => {
+    const id = req.params.id;
   
-  
-  
+    database.run(`DELETE FROM movie WHERE id = ?`, id, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.send("Film borttagen");
+      }
+    });
+  }); 
