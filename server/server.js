@@ -26,9 +26,9 @@ server.listen(3000, () => {
 sqlite3 = require("sqlite3").verbose();
 
 
-server.get("/movies", (req, res) => {
+server.get("", (req, res) => {
   const database = new sqlite3.Database("./netflix.db")
-  database.all("SELECT title FROM movie", (err, rows) => {
+  database.all("SELECT * FROM movie", (err, rows) => {
     if (err) {
       console.log(err); // Lägg till denna rad
       res.status(500).send(err);
@@ -38,7 +38,7 @@ server.get("/movies", (req, res) => {
   });
 });
 
-/*
+
 server.put("/movies/id", (req, res) => {
   const id = req.params.id;
   const movie = req.body;
@@ -55,5 +55,5 @@ server.put("/movies/id", (req, res) => {
     }
   );
 });
-*/
+
 
