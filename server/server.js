@@ -35,7 +35,7 @@ server.get("/movies", (req, res) => {
   });
 });
 
-server.put("/movies/:id", (req, res) => {
+server.put("/movies/id", (req, res) => {
   const id = req.params.id;
   const movie = req.body;
   database.run(
