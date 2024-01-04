@@ -6,15 +6,9 @@ btn.addEventListener('click', () => {
     setActiveElement.classList.toggle("form--active");
 })
 
-
-
-
-
-
-
 // --------------- CRUD - Create --------------- //
 
-const url = 'http://localhost:3000/movie/';
+const url = 'http://localhost:3000/';
 
 function loadUrl(url) 
 {
@@ -27,7 +21,7 @@ function loadUrl(url)
   });
 }
 
-const promise = loadUrl(localUrl);
+const promise = loadUrl(url);
 
 promise.then((movies) => {
     console.log(movies);
