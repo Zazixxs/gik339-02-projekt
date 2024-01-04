@@ -1,21 +1,23 @@
 const express = require("express");
 const { get } = require("http");
+const sqlite3 = require("sqlite3").verbose();
 
 /* Server objekt  */
 
 const server = express();
 
+
 /* Server inställningar */
 
 server
-  .use(express.json())
-  .use(express.urlencoded({ extended: false }))
-  .use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    next();
-  });
+.use(express.json())
+.use(express.urlencoded({ extended: false }))
+.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
 
 /* Starta Webbservern */
 
@@ -23,11 +25,13 @@ server.listen(3000, () => {
   console.log("Servern körs på port 3000");
 });
 
-sqlite3 = require("sqlite3").verbose();
 
 
+/* Databas objekt */
+const database = new sqlite3.Database("./netflix.db")
+
+/*get funktion */
 server.get("", (req, res) => {
-  const database = new sqlite3.Database("./netflix.db")
   database.all("SELECT * FROM movie", (err, rows) => {
     if (err) {
       console.log(err); // Lägg till denna rad
@@ -53,7 +57,10 @@ server.put("/movies/id", (req, res) => {
         res.status(200).json({ message: "Movie updated" });
       }
     }
-  );
-});
-
-
+    );
+  });
+  
+ 
+  
+  
+  
