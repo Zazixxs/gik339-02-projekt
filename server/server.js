@@ -27,15 +27,15 @@ sqlite3 = require("sqlite3").verbose();
 const database = new sqlite3.Database("./netflix.db")
 
 server.get("/movies", (req, res) => {
-  database.all(" SELECT title FROM movies", (err, rows) => {
+  database.all("SELECT title FROM movies", (err, rows) => {
     if (err) {
+      console.log(err); // Lägg till denna rad
       res.status(500).send(err);
     } else {
       res.send(rows);
     }
   });
 });
-
 
 /*
 server.put("/movies/id", (req, res) => {
