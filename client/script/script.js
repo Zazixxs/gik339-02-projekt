@@ -40,36 +40,3 @@ promise.then((movies) => {
         document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
     });
 });
-=======
-async function fetchMovies() {
-    try {
-      const response = await fetch("http://localhost:3000");
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const movies = await response.json();
-      return movies;
-    } catch (error) {
-      console.log("Det uppstod ett fel:", error);
-    }
-  }
-
-
-  async function createUserList() {
-    try {
-      const users = await fetchMovies();
-      const ul = document.createElement("ul");
-      ul.style.listStyleType = "none";
-      movies.forEach((movie) => {
-        const li = document.createElement("li");
-        li.textContent = `${movie.title} ${movie.length}`;
-        ul.appendChild(li);
-      });
-      document.body.appendChild(ul);
-    } catch (error) {
-      console.log("Det uppstod ett fel:", error);
-    }
-  }
-  
-  createUserList();
->>>>>>> Stashed changes
