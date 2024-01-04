@@ -1,0 +1,14 @@
+.list__item
+{
+    background-color: rgb(253, 253, 253);
+}
+
+.list_item--border
+{
+    text-align:center;
+    border-width: .4rem;
+    border-style: solid;
+    border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(127, 0, 0)) 1;
+    /*border-image: radial-gradient(rgb(0, 0, 36), rgb(127, 0, 0)) 1;*/
+    /*border-image: radial-gradient(rgb(0, 0, 192), rgb(0, 0, 104), rgb(0, 0, 36), rgb(50, 50, 0), rgb(212, 212, 0)) 1;*/
+}

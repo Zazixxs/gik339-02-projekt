@@ -1,0 +1,12 @@
+.form
+{
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+}
+
+.form--active
+{ 
+    transition: max-height 0.5s ease-in;
+    max-height: 500px;
+}

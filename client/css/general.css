@@ -1,11 +1,17 @@
 body
 {
     background-color: rgb(0, 0, 36);
-    color: rgb(208, 208, 208);
+    color: rgb(0, 0, 36);
 }
 
 .header
 {
-    background-color: rgb(208, 208, 208);
-    color: rgb(0, 0, 36);
+    color: aliceblue;
+    background-color: rgb(0, 0, 36);
+}
+
+.btn-danger
+{
+    border: unset;
+    background-color: rgb(127, 0, 0);
 }
