@@ -22,10 +22,12 @@ server
 server.listen(3000, () => {
   console.log("Servern körs på port 3000");
 });
+
 sqlite3 = require("sqlite3").verbose();
+const database = new sqlite3.Database("./netflix.db")
 
 server.get("/movies", (req, res) => {
-  db.all(" * FROM USERS", (err, rows) => {
+  database.all(" SELECT title FROM movies", (err, rows) => {
     if (err) {
       res.status(500).send(err);
     } else {
