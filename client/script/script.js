@@ -29,7 +29,7 @@ promise.then((movies) => {
     movies.forEach((movie) => {
         
         const html = 
-        `<div class="col-md-12 col-lg-6 col-xl-4 mt-5">
+        `<div id="${movie.id}" class="col-md-12 col-lg-6 col-xl-4 mt-5">
             <div class="p-3 list__item list_item--border">
                 <h3>${movie.title}</h3>
                 <p>${movie.short_description}</p>
