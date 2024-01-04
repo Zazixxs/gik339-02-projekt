@@ -1,4 +1,5 @@
 const express = require("express");
+const { get } = require("http");
 
 /* Server objekt  */
 
@@ -22,5 +23,15 @@ server.listen(3000, () => {
   console.log("Servern körs på port 3000");
 });
 sqlite3 = require("sqlite3").verbose();
+
+server.get("/movies", (req, res) => {
+  db.all(" * FROM USERS", (err, rows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send(rows);
+    }
+  });
+});
 
 
