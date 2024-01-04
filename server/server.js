@@ -22,3 +22,5 @@ server.listen(3000, () => {
   console.log("Servern körs på port 3000");
 });
 sqlite3 = require("sqlite3").verbose();
+
+
