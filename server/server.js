@@ -1,9 +1,9 @@
 const express = require("express");
+const { get } = require("http");
 
 /* Server objekt  */
 
 const server = express();
-const database = require("./netflix.db");
 
 /* Server inställningar */
 
@@ -25,12 +25,11 @@ server.listen(3000, () => {
 sqlite3 = require("sqlite3").verbose();
 
 server.get("/movies", (req, res) => {
-  database.all("SELECT * FROM movies", (err, rows) => {
+  db.all(" * FROM USERS", (err, rows) => {
     if (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).send(err);
     } else {
-      res.status(200).json(rows);
+      res.send(rows);
     }
   });
 });
