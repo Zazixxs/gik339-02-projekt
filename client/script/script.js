@@ -1,7 +1,3 @@
-
-
-// --------------- Site functionality --------------- //
-
 let setActiveElement = document.getElementById("addMovieForm"),
     btn = document.getElementById("addMovieButton");
 
@@ -12,10 +8,13 @@ btn.addEventListener('click', () => {
 
 
 
+
+
+
+
 // --------------- CRUD - Create --------------- //
 
-const localUrl = "http://localhost:3000/users";
-
+const url = 'http://localhost:3000/movie/';
 
 function loadUrl(url) 
 {
