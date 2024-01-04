@@ -24,10 +24,11 @@ server.listen(3000, () => {
 });
 
 sqlite3 = require("sqlite3").verbose();
-const database = new sqlite3.Database("./netflix.db")
+
 
 server.get("/movies", (req, res) => {
-  database.all("SELECT title FROM movies", (err, rows) => {
+  const database = new sqlite3.Database("./netflix.db")
+  database.all("SELECT title FROM movie", (err, rows) => {
     if (err) {
       console.log(err); // Lägg till denna rad
       res.status(500).send(err);
