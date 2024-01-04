@@ -1,0 +1,17 @@
+.btn
+{
+    font-weight: bold;
+    color: aliceblue;
+
+    text-align: center;
+    border-width: .2rem;
+    border-style: solid;
+    border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(127, 0, 0)) 1;
+
+    transition: 500ms ease-in-out;
+}
+.btn:hover
+{
+    color: aliceblue;
+    border-image: radial-gradient(rgb(127, 0, 0), rgb(127, 0, 0)) 1;
+}
