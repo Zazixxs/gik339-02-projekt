@@ -1,12 +1,28 @@
 let setActiveElement = document.getElementById("addMovieForm"),
-    btn = document.getElementById("addMovieButton");
+    btn = document.getElementById("addMovieButton"),
+    buttonTypeChange = document.querySelectorAll(".change");
 
+    console.log(buttonTypeChange);
 
 btn.addEventListener('click', () => {
     setActiveElement.classList.toggle("form--active");
 })
 
+buttonTypeChange.forEach(item => {
+    item.addEventListener('click', (e) => {
+        this.handleChange(e);
+    })
+})
+
+function handleChange(e)
+{
+    console.log(e.target);
+}
+
+
 // --------------- CRUD - Create --------------- //
+
+
 
 const url = 'http://localhost:3000/';
 
@@ -29,8 +45,17 @@ promise.then((movies) => {
     movies.forEach((movie) => {
         
         const html = 
-        `<div id="${movie.id}" class="col-md-12 col-lg-6 col-xl-4 mt-5">
-            <div class="p-3 list__item list_item--border">
+        `
+        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
+            <div class="button-container mb-2">
+                <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="">
+                        Delete
+                </button>
+                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="">
+                        Change
+                </button>
+            </div>
+            <div id="${movie.id}" class="p-3 list__item list_item--border">
                 <h3>${movie.title}</h3>
                 <p>${movie.short_description}</p>
                 <p>${movie.long_description}</p>

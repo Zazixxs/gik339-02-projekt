@@ -1,6 +1,14 @@
+.list
+{
+    position: relative;
+}
 .list__item
 {
     background-color: rgb(253, 253, 253);
+    webkit-filter: blur(0); /* Chrome, Safari, Opera */
+    filter: blur(0);
+    transition: ease-in-out 250ms;
+    z-index: 1;
 }
 
 .list_item--border
@@ -11,4 +19,13 @@
     border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(127, 0, 0)) 1;
     /*border-image: radial-gradient(rgb(0, 0, 36), rgb(127, 0, 0)) 1;*/
     /*border-image: radial-gradient(rgb(0, 0, 192), rgb(0, 0, 104), rgb(0, 0, 36), rgb(50, 50, 0), rgb(212, 212, 0)) 1;*/
+}
+
+
+/* UPDATE -- DELETE Hover */
+
+.button-container
+{
+    text-align: center;
+    transition: ease-in-out 250ms;
 }
