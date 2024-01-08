@@ -1,3 +1,5 @@
+//const { load } = require("signal-exit");
+
 let form = document.getElementById("addMovieForm"),
     btn = document.getElementById("addMovieButton");
 
@@ -9,9 +11,9 @@ btn.addEventListener('click', () => {
 
 function handleChange(e)
 {
-    currentList = e.parentElement.parentElement;
-    listItemArray = currentList.querySelector(".list__item").children;
-    formArray = form.querySelectorAll(".form-group");
+    let currentList = e.parentElement.parentElement;
+    let listItemArray = currentList.querySelector(".list__item").children;
+    let formArray = form.querySelectorAll(".form-group");
 
     //Get the text from select list item and transfer it to the form
     for(let i = 0; i < listItemArray.length; i++)
@@ -44,10 +46,7 @@ function loadUrl(url)
   });
 }
 
-const promise = loadUrl(url);
-
-promise.then((movies) => {
-    console.log(movies);
+loadUrl(url).then((movies) => {
 
     movies.forEach((movie) => {
         
@@ -71,4 +70,8 @@ promise.then((movies) => {
 
         document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
     });
+});
+
+fetch("/create").then((response) => {
+    //console.log(response);
 });

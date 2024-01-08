@@ -71,7 +71,7 @@ server.put("/:id", (req, res) => {
     });
   });
 
-  server.post("", (req, res) => {
+  server.post("/create", (req, res) => {
     const movie = req.body;
     database.run(
       `INSERT INTO movie (title, length, short_description, long_description) VALUES (?, ?, ?, ?)`,
