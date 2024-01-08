@@ -75,7 +75,7 @@ server.put("/:id", (req, res) => {
     const movie = req.body;
     database.run(
       `INSERT INTO movie (title, length, short_description, long_description) VALUES (?, ?, ?, ?)`,
-      [movie.title, movie.length, movie.short_description, movie.long_descriptio],
+      [movie.title, movie.length, movie.short_description, movie.long_description],
       (err) => {
         if (err) {
           console.log(err);
