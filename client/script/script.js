@@ -26,12 +26,11 @@ function handleChange(e)
     {
         form.classList.toggle("form--active");
     }
+    window.scrollTo(0, 0);
 }
 
 
 // --------------- CRUD - Read --------------- //
-
-
 
 const url = 'http://localhost:3000/';
 
@@ -95,7 +94,6 @@ addMovieForm.addEventListener("submit", (e) => {
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data);
         location.reload();
     })
     .catch((err) => console.log(err));
@@ -111,7 +109,6 @@ function handleDelete(e)
     })
     .then((res) => res.json())
     .then((data) => {
-        console.log(data);
         location.reload();
     })
     .catch((err) => console.log(err));
@@ -119,8 +116,3 @@ function handleDelete(e)
 
 // --------------- CRUD - Update --------------- //
 
-
-            
-            
-            
-            
