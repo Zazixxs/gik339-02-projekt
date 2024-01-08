@@ -29,7 +29,7 @@ function handleChange(e)
 }
 
 
-// --------------- CRUD - Create --------------- //
+// --------------- CRUD - Read --------------- //
 
 
 
@@ -53,25 +53,52 @@ loadUrl(url).then((movies) => {
         const html = 
         `
         <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
-            <div class="button-container mb-2">
-                <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="">
-                        Delete
-                </button>
-                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-                        Change
-                </button>
-            </div>
-            <div id="${movie.id}" class="p-3 list__item list_item--border">
-                <h3>${movie.title}</h3>
-                <p>${movie.short_description}</p>
-                <p>${movie.long_description}</p>
-            </div>
+        <div id="${movie.id}" class="p-3 list__item list_item--border">
+        <h3>${movie.title}</h3>
+        <p>${movie.short_description}</p>
+        <p>${movie.long_description}</p>
+        </div>
+        <div class="button-container mb-2">
+            <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="">
+                    Delete
+            </button>
+            <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+                    Change
+            </button>
+        </div>
         </div>`
 
         document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
     });
 });
 
-fetch("/create").then((response) => {
-    //console.log(response);
+// --------------- CRUD - Create --------------- //
+
+const addMovieForm = document.getElementById("addMovieForm");
+addMovieForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const movie = {
+        title: addMovieForm.title.value,
+        length: addMovieForm.length.value,
+        short_description: addMovieForm.short_description.value,
+        long_description: addMovieForm.long_description.value
+    }
+
+    fetch(url + "create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(movie)
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+        location.reload();
+    })
+    .catch((err) => console.log(err));
 });
+
+
+
