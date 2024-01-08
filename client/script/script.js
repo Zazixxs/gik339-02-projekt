@@ -14,13 +14,13 @@ function handleChange(e)
     let currentList = e.parentElement.parentElement;
     let listItemArray = currentList.querySelector(".list__item").children;
     let formArray = form.querySelectorAll(".form-group");
-
+    
     //Get the text from select list item and transfer it to the form
     for(let i = 0; i < listItemArray.length; i++)
     {
         formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
     }
-
+    
     //Check if the form is opened or not - if not, open it
     if(!form.classList.contains("form--active"))
     {
@@ -40,14 +40,15 @@ function loadUrl(url)
   return new Promise(async function (resolve, reject) 
   {
     const getResolve = await fetch(url);
-
+    
     resolve(getResolve.json());
-
-  });
+    
+});
 }
 
-loadUrl(url).then((movies) => {
 
+loadUrl(url).then((movies) => {
+    
     movies.forEach((movie) => {
         
         const html = 
@@ -59,15 +60,15 @@ loadUrl(url).then((movies) => {
         <p>${movie.long_description}</p>
         </div>
         <div class="button-container mb-2">
-            <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="">
-                    Delete
-            </button>
-            <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-                    Change
-            </button>
+        <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
+        Delete
+        </button>
+        <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+        Change
+        </button>
         </div>
         </div>`
-
+        
         document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
     });
 });
@@ -77,14 +78,14 @@ loadUrl(url).then((movies) => {
 const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
+    
     const movie = {
         title: addMovieForm.title.value,
         length: addMovieForm.length.value,
         short_description: addMovieForm.short_description.value,
         long_description: addMovieForm.long_description.value
     }
-
+    
     fetch(url + "create", {
         method: "POST",
         headers: {
@@ -102,12 +103,9 @@ addMovieForm.addEventListener("submit", (e) => {
 
 // --------------- CRUD - Delete --------------- //
 
-const deleteButton = document.querySelectorAll(".delete");
-deleteButton.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const id = e.target.parentElement.parentElement.id;
-
+function handleDelete(e)
+{
+    const id = e.parentElement.parentElement.querySelector(".list__item").id;
     fetch(url + id, {
         method: "DELETE"
     })
@@ -117,7 +115,9 @@ deleteButton.addEventListener("click", (e) => {
         location.reload();
     })
     .catch((err) => console.log(err));
-});
+}
 
-
-
+            
+            
+            
+            
