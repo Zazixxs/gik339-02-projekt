@@ -58,7 +58,7 @@ server.put("/:id", (req, res) => {
     );
   });
   
-  server.delete("/:id", (req, res) => {
+server.delete("/:id", (req, res) => {
     const id = req.params.id;
   
     database.run(`DELETE FROM movie WHERE id = ?`, id, (err) => {
@@ -69,10 +69,12 @@ server.put("/:id", (req, res) => {
         res.send("Film borttagen");
       }
     });
-  });
+});
 
-  server.post("", (req, res) => {
+
+server.post("/create", (req, res) => {
     const movie = req.body;
+    console.log(movie);
     database.run(
       `INSERT INTO movie (title, length, short_description, long_description) VALUES (?, ?, ?, ?)`,
       [movie.title, movie.length, movie.short_description, movie.long_description],
@@ -85,4 +87,4 @@ server.put("/:id", (req, res) => {
         }
       }
     );
-  });
+});
