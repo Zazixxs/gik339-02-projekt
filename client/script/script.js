@@ -1,22 +1,29 @@
-let setActiveElement = document.getElementById("addMovieForm"),
-    btn = document.getElementById("addMovieButton"),
-    buttonTypeChange = document.querySelectorAll(".change");
+let form = document.getElementById("addMovieForm"),
+    btn = document.getElementById("addMovieButton");
 
-    console.log(buttonTypeChange);
-
+/* Sets the form as active, and displaying it. */
 btn.addEventListener('click', () => {
-    setActiveElement.classList.toggle("form--active");
+    form.classList.toggle("form--active");
 })
 
-buttonTypeChange.forEach(item => {
-    item.addEventListener('click', (e) => {
-        this.handleChange(e);
-    })
-})
 
 function handleChange(e)
 {
-    console.log(e.target);
+    currentList = e.parentElement.parentElement;
+    listItemArray = currentList.querySelector(".list__item").children;
+    formArray = form.querySelectorAll(".form-group");
+
+    //Get the text from select list item and transfer it to the form
+    for(let i = 0; i < listItemArray.length; i++)
+    {
+        formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
+    }
+
+    //Check if the form is opened or not - if not, open it
+    if(!form.classList.contains("form--active"))
+    {
+        form.classList.toggle("form--active");
+    }
 }
 
 
@@ -51,7 +58,7 @@ promise.then((movies) => {
                 <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="">
                         Delete
                 </button>
-                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="">
+                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
                         Change
                 </button>
             </div>
