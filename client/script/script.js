@@ -100,7 +100,7 @@ addMovieForm.addEventListener("submit", (e) => {
     .catch((err) => console.log(err));
 });
 
-// --------------- CRUD - Update --------------- //
+// --------------- CRUD - Delete --------------- //
 
 const deleteButton = document.querySelectorAll(".delete");
 deleteButton.addEventListener("click", (e) => {
