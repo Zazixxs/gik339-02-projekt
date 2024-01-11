@@ -29,6 +29,9 @@ function handleChange(e)
     let currentList = e.parentElement.parentElement;
     let listItemArray = currentList.querySelector(".list__item").children;
     let formArray = form.querySelectorAll(".form-group");
+
+    localStorage.setItem("changeID", e.parentElement.previousElementSibling.id);
+    //localStorage.getItem("changeID");  <---- Use this to retrieve the ID
     
     //Get the text from select list item and transfer it to the form
     for(let i = 0; i < listItemArray.length; i++)
@@ -68,19 +71,18 @@ loadUrl(url).then((movies) => {
         const html = 
         `
         <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
-        <div id="${movie.id}" class="p-3 list__item list_item--border">
-        <h3>${movie.title}</h3>
-        <p>${movie.short_description}</p>
-        <p>${movie.long_description}</p>
+            <div id="${movie.id}" class="p-3 list__item list_item--border">
+            <h3>${movie.title}</h3>
+            <p>${movie.short_description}</p>
+            <p>${movie.long_description}</p>
         </div>
         <div class="button-container mb-2">
-        <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
-        Delete
-        </button>
-        <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-        Change
-        </button>
-        </div>
+            <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
+            Delete
+            </button>
+            <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+            Change
+            </button>
         </div>`
         
         document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
