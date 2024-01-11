@@ -1,5 +1,4 @@
 
-
 let form = document.getElementById("addMovieForm"),
     btn = document.getElementById("addMovieButton"),
     movieTitle = document.getElementById("title"),
@@ -71,36 +70,39 @@ function loadUrl(url)
 });
 }
 
-
-loadUrl(url).then((movies) => {
-    
-    movies.forEach((movie) => {
+function listMovies() {
+    loadUrl(url).then((movies) => {
         
-        const html = 
-        `
-        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
-            <div id="${movie.id}" class="p-3 list__item list_item--border">
-            <h3>${movie.title}</h3>
-            <p>${movie.short_description}</p>
-            <p>${movie.long_description}</p>
-        </div>
-        <div class="button-container mb-2">
-            <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
-            Delete
-            </button>
-            <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-            Change
-            </button>
-        </div>`
-        
-        document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
+        movies.forEach((movie) => {
+            
+            const html = 
+            `
+            <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
+                <div id="${movie.id}" class="p-3 list__item list_item--border">
+                <h3>${movie.title}</h3>
+                <p>${movie.short_description}</p>
+                <p>${movie.long_description}</p>
+            </div>
+            <div class="button-container mb-2">
+                <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
+                Delete
+                </button>
+                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+                Change
+                </button>
+            </div>`
+            
+            document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
+        });
     });
-});
+}
 
 // --------------- CRUD - Create --------------- //
 
 const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
     e.preventDefault();
 
     const movie = {
@@ -111,9 +113,6 @@ addMovieForm.addEventListener("submit", (e) => {
     
     if(e.submitter.id === "create")
     {
-        e.preventDefault();
-
-
         fetch(url + "create", {
             method: "POST",
             headers: {
@@ -128,7 +127,7 @@ addMovieForm.addEventListener("submit", (e) => {
               } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
               }
-            location.reload();
+            listMovies();
         })
         .catch((err) => console.log(err));
     }
@@ -142,10 +141,7 @@ addMovieForm.addEventListener("submit", (e) => {
             },
             body: JSON.stringify(movie)
         })
-        .then((res) => {
-            console.log('Server Response:', res);
-            return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
             console.log('Server Data:', data);
             if (data.message) {
@@ -153,7 +149,7 @@ addMovieForm.addEventListener("submit", (e) => {
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
             }
-            location.reload();
+            listMovies();
         })
         .catch((err) => console.log('Error:', err));
     }
@@ -162,7 +158,6 @@ addMovieForm.addEventListener("submit", (e) => {
 
 function handleDelete(e)
 {
-    e.preventDefault();
     loadUrl(url).then((movies) => {
         movies.forEach((movie) => {
             if(movie.id == e.parentElement.parentElement.querySelector(".list__item").id)
@@ -183,6 +178,7 @@ function handleDelete(e)
                     })
                     .catch((err) => console.log(err));
                 }
+                listMovies();
             }
         });
     });
@@ -190,3 +186,4 @@ function handleDelete(e)
 
 // --------------- CRUD - Update --------------- //
 
+listMovies();
