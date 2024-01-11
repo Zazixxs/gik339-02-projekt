@@ -16,3 +16,8 @@
     color: aliceblue;
     border-image: radial-gradient(rgb(127, 0, 0), rgb(127, 0, 0)) 1;
 }
+
+.btn--hidden
+{
+    display: none;
+}

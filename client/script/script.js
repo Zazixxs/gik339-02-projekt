@@ -18,6 +18,9 @@ function resetForm()
 
 resetForm();
 
+
+
+
 /* Sets the form as active, and displaying it. */
 btn.addEventListener('click', () => {
     form.classList.toggle("form--active");
@@ -29,29 +32,33 @@ btn.addEventListener('click', () => {
     } 
 })
 
-
 function handleChange(e)
 {
     let currentList = e.parentElement.parentElement;
     let listItemArray = currentList.querySelector(".list__item").children;
     let formArray = form.querySelectorAll(".form-group");
+    let formUpdateButton = document.getElementById("update");
 
     localStorage.setItem("changeID", e.parentElement.previousElementSibling.id);
+
+    if(formUpdateButton.classList.contains("btn--hidden"))
+        formUpdateButton.classList.toggle("btn--hidden");
     //localStorage.getItem("changeID");  <---- Use this to retrieve the ID
-    
+
     //Get the text from select list item and transfer it to the form
     for(let i = 0; i < listItemArray.length; i++)
     {
         formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
     }
-    
+
     //Check if the form is opened or not - if not, open it
     if(!form.classList.contains("form--active"))
     {
         form.classList.toggle("form--active");
-    } 
+    }
     window.scrollTo(0, 0);
 }
+
 
 
 // --------------- CRUD - Read --------------- //
