@@ -44,34 +44,19 @@ server.get("", (req, res) => {
 server.put("/:id", (req, res) => {
   const id = req.params.id;
   const movie = req.body;
-
-  // Först, leta upp filmen i databasen
-  database.get(`SELECT * FROM movies WHERE id=?`, id, (err, row) => {
-    if (err) {
-      console.log(err);
-      res.status(500).json({ error: err });
-    } else {
-      // Om filmen finns, uppdatera den
-      if (row) {
-        database.run(
-          `UPDATE movies SET title=?, length=?, short_description=?, long_description=? WHERE id=?`,
-          [movie.title, movie.length, movie.short_description, movie.long_description, id],
-          (err) => {
-            if (err) {
-              console.log(err);
-              res.status(500).json({ error: err });
-            } else {
-              res.status(200).json({ message: "Film uppdaterad" });
-            }
-          }
-        );
+  database.run(
+    `UPDATE movie SET title=?, length=?, short_description=?, long_description=? WHERE id=?`,
+    [movie.title, movie.length, movie.short_description, movie.long_description, id],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ error: err });
       } else {
-        // Om filmen inte finns, skicka ett felmeddelande
-        res.status(404).json({ message: "Film inte hittad" });
+        res.status(200).json({ message: "Film uppdaterad" });
       }
     }
+    );
   });
-});
   
 server.delete("/:id", (req, res) => {
     const id = req.params.id;

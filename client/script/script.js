@@ -133,8 +133,19 @@ addMovieForm.addEventListener("submit", (e) => {
     }
     else
     {
-        console.log("Update was clicked ->", e.submitter);
-        /Write code for update here/
+        let id = localStorage.getItem("changeID");
+        fetch(url + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(movie)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            location.reload();
+        })
+        .catch((err) => console.log(err));
     }
 });
 // --------------- CRUD - Delete --------------- //
