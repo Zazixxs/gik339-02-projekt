@@ -52,7 +52,7 @@ server.put("/:id", (req, res) => {
         console.log(err);
         res.status(500).json({ error: err });
       } else {
-        res.status(200).json({ message: "Film uppdaterad" });
+        res.status(201).json({ message: "Film är uppdaterad" });
       }
     });
   });

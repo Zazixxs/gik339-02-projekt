@@ -106,7 +106,8 @@ loadUrl(url).then((movies) => {
 
 const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
-
+    e.preventDefault();
+    
     const movie = {
         title: addMovieForm.title.value,
         short_description: addMovieForm.short_description.value,
@@ -115,7 +116,6 @@ addMovieForm.addEventListener("submit", (e) => {
     
     if(e.submitter.id === "create")
     {
-        e.preventDefault();
 
 
         fetch(url + "create", {
@@ -146,10 +146,7 @@ addMovieForm.addEventListener("submit", (e) => {
             },
             body: JSON.stringify(movie)
         })
-        .then((res) => {
-            console.log('Server Response:', res);
-            return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
             console.log('Server Data:', data);
             if (data.message) {
