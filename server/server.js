@@ -54,8 +54,7 @@ server.put("/:id", (req, res) => {
       } else {
         res.status(200).json({ message: "Film uppdaterad" });
       }
-    }
-    );
+    });
   });
   
 server.delete("/:id", (req, res) => {
@@ -66,7 +65,7 @@ server.delete("/:id", (req, res) => {
         console.log(err);
         res.status(500).send(err);
       } else {
-        res.send("Film borttagen");
+        res.status(200).json({ message: "Film är borttagen" });
       }
     });
 });

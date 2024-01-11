@@ -127,6 +127,11 @@ addMovieForm.addEventListener("submit", (e) => {
         })
         .then((res) => res.json())
         .then((data) => {
+            if (data.message) {
+                alert('Serverns svar: ' + data.message);
+              } else if (data.error) {
+                alert('Ett fel inträffade: ' + data.error);
+              }
             location.reload();
         })
         .catch((err) => console.log(err));
@@ -141,11 +146,20 @@ addMovieForm.addEventListener("submit", (e) => {
             },
             body: JSON.stringify(movie)
         })
-        .then((res) => res.json())
+        .then((res) => {
+            console.log('Server Response:', res);
+            return res.json();
+        })
         .then((data) => {
+            console.log('Server Data:', data);
+            if (data.message) {
+                alert('Serverns svar: ' + data.message);
+            } else if (data.error) {
+                alert('Ett fel inträffade: ' + data.error);
+            }
             location.reload();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log('Error:', err));
     }
 });
 // --------------- CRUD - Delete --------------- //
@@ -158,6 +172,11 @@ function handleDelete(e)
     })
     .then((res) => res.json())
     .then((data) => {
+        if (data.message) {
+                alert('Serverns svar: ' + data.message);
+              } else if (data.error) {
+                alert('Ett fel inträffade: ' + data.error);
+              }
         location.reload();
     })
     .catch((err) => console.log(err));
