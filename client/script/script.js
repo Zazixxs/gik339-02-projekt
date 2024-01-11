@@ -1,5 +1,3 @@
-//const { load } = require("signal-exit");
-
 
 
 let form = document.getElementById("addMovieForm"),
@@ -17,9 +15,6 @@ function resetForm()
 }    
 
 resetForm();
-
-
-
 
 /* Sets the form as active, and displaying it. */
 btn.addEventListener('click', () => {
@@ -106,6 +101,7 @@ loadUrl(url).then((movies) => {
 
 const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
     const movie = {
         title: addMovieForm.title.value,
@@ -166,20 +162,30 @@ addMovieForm.addEventListener("submit", (e) => {
 
 function handleDelete(e)
 {
-    const id = e.parentElement.parentElement.querySelector(".list__item").id;
-    fetch(url + id, {
-        method: "DELETE"
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        if (data.message) {
-                alert('Serverns svar: ' + data.message);
-              } else if (data.error) {
-                alert('Ett fel inträffade: ' + data.error);
-              }
-        location.reload();
-    })
-    .catch((err) => console.log(err));
+    e.preventDefault();
+    loadUrl(url).then((movies) => {
+        movies.forEach((movie) => {
+            if(movie.id == e.parentElement.parentElement.querySelector(".list__item").id)
+            {
+                if(confirm(`Are you sure you want to delete ${movie.title}?`))
+                {
+                    const id = e.parentElement.parentElement.querySelector(".list__item").id;
+                    fetch(url + id, {
+                        method: "DELETE"
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.message) {
+                                alert('Serverns svar: ' + data.message);
+                            } else if (data.error) {
+                                alert('Ett fel inträffade: ' + data.error);
+                            }
+                    })
+                    .catch((err) => console.log(err));
+                }
+            }
+        });
+    });
 }
 
 // --------------- CRUD - Update --------------- //
