@@ -106,29 +106,37 @@ loadUrl(url).then((movies) => {
 
 const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    
+
     const movie = {
         title: addMovieForm.title.value,
-        length: addMovieForm.length.value,
         short_description: addMovieForm.short_description.value,
         long_description: addMovieForm.long_description.value
     }
     
-    fetch(url + "create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(movie)
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        location.reload();
-    })
-    .catch((err) => console.log(err));
-});
+    if(e.submitter.id === "create")
+    {
+        e.preventDefault();
 
+
+        fetch(url + "create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(movie)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            location.reload();
+        })
+        .catch((err) => console.log(err));
+    }
+    else
+    {
+        console.log("Update was clicked ->", e.submitter);
+        /Write code for update here/
+    }
+});
 // --------------- CRUD - Delete --------------- //
 
 function handleDelete(e)
