@@ -32,28 +32,26 @@ function handleChange(e)
     let listItemArray = currentList.querySelector(".list__item").children;
     let formArray = form.querySelectorAll(".form-group");
     let formUpdateButton = document.getElementById("update");
-
+    
     localStorage.setItem("changeID", e.parentElement.previousElementSibling.id);
-
+    
     if(formUpdateButton.classList.contains("btn--hidden"))
-        formUpdateButton.classList.toggle("btn--hidden");
-    //localStorage.getItem("changeID");  <---- Use this to retrieve the ID
+    formUpdateButton.classList.toggle("btn--hidden");
+//localStorage.getItem("changeID");  <---- Use this to retrieve the ID
 
-    //Get the text from select list item and transfer it to the form
-    for(let i = 0; i < listItemArray.length; i++)
-    {
-        formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
-    }
-
-    //Check if the form is opened or not - if not, open it
-    if(!form.classList.contains("form--active"))
-    {
-        form.classList.toggle("form--active");
-    }
-    window.scrollTo(0, 0);
+//Get the text from select list item and transfer it to the form
+for(let i = 0; i < listItemArray.length; i++)
+{
+    formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
 }
 
-
+//Check if the form is opened or not - if not, open it
+if(!form.classList.contains("form--active"))
+{
+    form.classList.toggle("form--active");
+}
+window.scrollTo(0, 0);
+}
 
 // --------------- CRUD - Read --------------- //
 
@@ -63,39 +61,39 @@ function loadUrl(url)
 {
   return new Promise(async function (resolve, reject) 
   {
-    const getResolve = await fetch(url);
-    
-    resolve(getResolve.json());
-    
-});
-}
-
-function listMovies() {
-    loadUrl(url).then((movies) => {
-        
-        movies.forEach((movie) => {
-            
-            const html = 
-            `
-            <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
-                <div id="${movie.id}" class="p-3 list__item list_item--border">
-                <h3>${movie.title}</h3>
-                <p>${movie.short_description}</p>
-                <p>${movie.long_description}</p>
-            </div>
-            <div class="button-container mb-2">
-                <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
-                Delete
-                </button>
-                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-                Change
-                </button>
-            </div>`
-            
-            document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
-        });
+      const getResolve = await fetch(url);
+      
+      resolve(getResolve.json());
+      
     });
 }
+
+
+loadUrl(url).then((movies) => {
+    
+    movies.forEach((movie) => {
+        
+        const html = 
+        `
+        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
+        <div id="${movie.id}" class="p-3 list__item list_item--border">
+        <h3>${movie.title}</h3>
+        <p>${movie.short_description}</p>
+        <p>${movie.long_description}</p>
+        </div>
+        <div class="button-container mb-2">
+        <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
+        Delete
+        </button>
+        <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+        Change
+        </button>
+        </div>`
+        
+        document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
+    });
+});
+
 
 // --------------- CRUD - Create --------------- //
 
@@ -103,8 +101,6 @@ const addMovieForm = document.getElementById("addMovieForm");
 addMovieForm.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    e.preventDefault();
-
     const movie = {
         title: addMovieForm.title.value,
         short_description: addMovieForm.short_description.value,
@@ -124,10 +120,9 @@ addMovieForm.addEventListener("submit", (e) => {
         .then((data) => {
             if (data.message) {
                 alert('Serverns svar: ' + data.message);
-              } else if (data.error) {
+            } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
-              }
-            listMovies();
+            }
         })
         .catch((err) => console.log(err));
     }
@@ -149,7 +144,6 @@ addMovieForm.addEventListener("submit", (e) => {
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
             }
-            listMovies();
         })
         .catch((err) => console.log('Error:', err));
     }
@@ -171,14 +165,13 @@ function handleDelete(e)
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.message) {
-                                alert('Serverns svar: ' + data.message);
-                            } else if (data.error) {
-                                alert('Ett fel inträffade: ' + data.error);
-                            }
+                            alert('Serverns svar: ' + data.message);
+                        } else if (data.error) {
+                            alert('Ett fel inträffade: ' + data.error);
+                        }
                     })
                     .catch((err) => console.log(err));
                 }
-                listMovies();
             }
         });
     });
@@ -186,4 +179,3 @@ function handleDelete(e)
 
 // --------------- CRUD - Update --------------- //
 
-listMovies();
