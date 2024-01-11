@@ -9,17 +9,23 @@ let form = document.getElementById("addMovieForm"),
     movieLongDescription = document.getElementById("long_description");
 
 
+function resetForm()
+{
+    movieTitle.value = "";
+    movieShortDescription.value = "";
+    movieLongDescription.value = "";
+}    
+
+resetForm();
+
 /* Sets the form as active, and displaying it. */
 btn.addEventListener('click', () => {
     form.classList.toggle("form--active");
     if(!form.classList.contains("form--active"))
     {   
         setTimeout(function(){
-            movieTitle.value = "";
-            movieShortDescription.value = "";
-            movieLongDescription.value = "";
+            resetForm();
         }, 1000);
-    
     } 
 })
 
