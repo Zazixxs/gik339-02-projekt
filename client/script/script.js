@@ -1,11 +1,26 @@
 //const { load } = require("signal-exit");
 
+
+
 let form = document.getElementById("addMovieForm"),
-    btn = document.getElementById("addMovieButton");
+    btn = document.getElementById("addMovieButton"),
+    movieTitle = document.getElementById("title"),
+    movieShortDescription = document.getElementById("short_description"),
+    movieLongDescription = document.getElementById("long_description");
+
 
 /* Sets the form as active, and displaying it. */
 btn.addEventListener('click', () => {
     form.classList.toggle("form--active");
+    if(!form.classList.contains("form--active"))
+    {   
+        setTimeout(function(){
+            movieTitle.value = "";
+            movieShortDescription.value = "";
+            movieLongDescription.value = "";
+        }, 1000);
+    
+    } 
 })
 
 
@@ -25,7 +40,7 @@ function handleChange(e)
     if(!form.classList.contains("form--active"))
     {
         form.classList.toggle("form--active");
-    }
+    } 
     window.scrollTo(0, 0);
 }
 
