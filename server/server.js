@@ -45,8 +45,8 @@ server.put("/:id", (req, res) => {
   const id = req.params.id;
   const movie = req.body;
   database.run(
-    `UPDATE movie SET title=?, length=?, short_description=?, long_description=? WHERE id=?`,
-    [movie.title, movie.length, movie.short_description, movie.long_description, id],
+    `UPDATE movie SET title=?, short_description=?, long_description=?, genre=? WHERE id=?`,
+    [movie.title, movie.short_description, movie.long_description, movie.genre, id],
     (err) => {
       if (err) {
         console.log(err);
@@ -75,8 +75,8 @@ server.post("/create", (req, res) => {
     const movie = req.body;
     console.log(movie);
     database.run(
-      `INSERT INTO movie (title, length, short_description, long_description) VALUES (?, ?, ?, ?)`,
-      [movie.title, movie.length, movie.short_description, movie.long_description],
+      `INSERT INTO movie (title, short_description, long_description, genre) VALUES (?, ?, ?, ?)`,
+      [movie.title, movie.short_description, movie.long_description, movie.genre],
       (err) => {
         if (err) {
           console.log(err);

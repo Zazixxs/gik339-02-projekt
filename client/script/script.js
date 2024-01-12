@@ -3,7 +3,8 @@ let form = document.getElementById("addMovieForm"),
     btn = document.getElementById("addMovieButton"),
     movieTitle = document.getElementById("title"),
     movieShortDescription = document.getElementById("short_description"),
-    movieLongDescription = document.getElementById("long_description");
+    movieLongDescription = document.getElementById("long_description"),
+    movieGenre = document.getElementById("genre");
 
 
 function resetForm()
@@ -11,6 +12,7 @@ function resetForm()
     movieTitle.value = "";
     movieShortDescription.value = "";
     movieLongDescription.value = "";
+    genre.value = "";
 }    
 
 resetForm();
@@ -68,6 +70,13 @@ function loadUrl(url)
     });
 }
 
+const genreMap = new Map();
+genreMap.set('Action', '255,0,0');
+genreMap.set('Comedy', '0,255,0');
+genreMap.set('Drama', '0,0,255');
+genreMap.set('Fantasy', '255,150,0');
+genreMap.set('Horror', '255,0,255');
+genreMap.set('Sci-fi', '0,255,255');
 
 loadUrl(url).then((movies) => {
     
@@ -75,11 +84,12 @@ loadUrl(url).then((movies) => {
         
         const html = 
         `
-        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5">
-        <div id="${movie.id}" class="p-3 list__item list_item--border">
+        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5" >
+        <div id="${movie.id}" class="p-3 list__item list_item--border" style="border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(${genreMap.get(movie.genre)})) 1">
         <h3>${movie.title}</h3>
         <p>${movie.short_description}</p>
         <p>${movie.long_description}</p>
+        <p>${movie.genre}</p>
         </div>
         <div class="button-container mb-2">
         <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
@@ -104,7 +114,8 @@ addMovieForm.addEventListener("submit", (e) => {
     const movie = {
         title: addMovieForm.title.value,
         short_description: addMovieForm.short_description.value,
-        long_description: addMovieForm.long_description.value
+        long_description: addMovieForm.long_description.value,
+        genre: addMovieForm.genre.value
     }
     
     if(e.submitter.id === "create")
@@ -126,6 +137,9 @@ addMovieForm.addEventListener("submit", (e) => {
         })
         .catch((err) => console.log(err));
     }
+
+    // --------------- CRUD - Update --------------- //
+    
     else
     {
         let id = localStorage.getItem("changeID");
@@ -176,6 +190,3 @@ function handleDelete(e)
         });
     });
 }
-
-// --------------- CRUD - Update --------------- //
-
