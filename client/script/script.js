@@ -39,20 +39,20 @@ function handleChange(e)
     
     if(formUpdateButton.classList.contains("btn--hidden"))
     formUpdateButton.classList.toggle("btn--hidden");
-//localStorage.getItem("changeID");  <---- Use this to retrieve the ID
+    //localStorage.getItem("changeID");  <---- Use this to retrieve the ID
 
-//Get the text from select list item and transfer it to the form
-for(let i = 0; i < listItemArray.length; i++)
-{
-    formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
-}
+    //Get the text from select list item and transfer it to the form
+    for(let i = 0; i < listItemArray.length; i++)
+    {
+        formArray[i].lastElementChild.value = listItemArray.item(i).innerHTML;
+    }
 
-//Check if the form is opened or not - if not, open it
-if(!form.classList.contains("form--active"))
-{
-    form.classList.toggle("form--active");
-}
-window.scrollTo(0, 0);
+    //Check if the form is opened or not - if not, open it
+    if(!form.classList.contains("form--active"))
+    {
+        form.classList.toggle("form--active");
+    }
+    window.scrollTo(0, 0);
 }
 
 // --------------- CRUD - Read --------------- //
@@ -139,7 +139,7 @@ addMovieForm.addEventListener("submit", (e) => {
     }
 
     // --------------- CRUD - Update --------------- //
-    
+
     else
     {
         let id = localStorage.getItem("changeID");
