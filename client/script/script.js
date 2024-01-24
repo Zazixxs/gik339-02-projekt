@@ -78,32 +78,37 @@ genreMap.set('Fantasy', '255,150,0');
 genreMap.set('Horror', '255,0,255');
 genreMap.set('Sci-fi', '0,255,255');
 
-loadUrl(url).then((movies) => {
-    
-    movies.forEach((movie) => {
+function renderMovies(){
+    loadUrl(url).then((movies) => {
         
-        const html = 
-        `
-        <div class="list col-md-12 col-lg-6 col-xl-4 mt-5" >
-        <div id="${movie.id}" class="p-3 list__item list_item--border" style="border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(${genreMap.get(movie.genre)})) 1">
-        <h3>${movie.title}</h3>
-        <p>${movie.short_description}</p>
-        <p>${movie.long_description}</p>
-        <p>${movie.genre}</p>
-        </div>
-        <div class="button-container mb-2">
-        <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
-        Delete
-        </button>
-        <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
-        Change
-        </button>
-        </div>`
-        
-        document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
+        document.getElementById("movieList").innerHTML = "";
+        movies.forEach((movie) => {
+            
+            const html = 
+            `
+            <div class="list col-md-12 col-lg-6 col-xl-4 mt-5" >
+                <div id="${movie.id}" class="p-3 list__item list_item--border" style="border-image: radial-gradient(rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36),rgb(0, 0, 36), rgb(${genreMap.get(movie.genre)})) 1">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.short_description}</p>
+                    <p>${movie.long_description}</p>
+                    <p>${movie.genre}</p>
+                </div>
+            <div class="button-container mb-2">
+                <button type="button" class="btn delete" data-bs-toggle="" data-bs-target="" onclick="handleDelete(this)">
+                    Delete
+                </button>
+                <button type="button" class="btn change" data-bs-toggle="" data-bs-target="" onclick="handleChange(this)">
+                    Change
+                </button>
+            </div>
+            `
+            
+            document.getElementById("movieList").insertAdjacentHTML("beforeend", html);
+        });
     });
-});
+}
 
+renderMovies();
 
 // --------------- CRUD - Create --------------- //
 
@@ -131,6 +136,7 @@ addMovieForm.addEventListener("submit", (e) => {
         .then((data) => {
             if (data.message) {
                 alert('Serverns svar: ' + data.message);
+                renderMovies();
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
             }
@@ -155,6 +161,7 @@ addMovieForm.addEventListener("submit", (e) => {
             console.log('Server Data:', data);
             if (data.message) {
                 alert('Serverns svar: ' + data.message);
+                renderMovies();
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
             }
@@ -180,6 +187,7 @@ function handleDelete(e)
                     .then((data) => {
                         if (data.message) {
                             alert('Serverns svar: ' + data.message);
+                            renderMovies();
                         } else if (data.error) {
                             alert('Ett fel inträffade: ' + data.error);
                         }
