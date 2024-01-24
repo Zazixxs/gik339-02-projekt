@@ -136,6 +136,7 @@ addMovieForm.addEventListener("submit", (e) => {
         .then((data) => {
             if (data.message) {
                 alert('Serverns svar: ' + data.message);
+                resetForm();
                 renderMovies();
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
@@ -161,6 +162,7 @@ addMovieForm.addEventListener("submit", (e) => {
             console.log('Server Data:', data);
             if (data.message) {
                 alert('Serverns svar: ' + data.message);
+                resetForm();
                 renderMovies();
             } else if (data.error) {
                 alert('Ett fel inträffade: ' + data.error);
@@ -187,6 +189,7 @@ function handleDelete(e)
                     .then((data) => {
                         if (data.message) {
                             alert('Serverns svar: ' + data.message);
+                            resetForm();
                             renderMovies();
                         } else if (data.error) {
                             alert('Ett fel inträffade: ' + data.error);
